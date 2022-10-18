@@ -1,0 +1,1 @@
+# TDOC-Stock-Analysis-App
