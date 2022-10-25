@@ -15,7 +15,8 @@ import javax.swing.*;
  * @author satyam
  */
 public class graphplot extends JPanel{
-    int[] cord = {65, 20, 40, 80};  
+    int[] cordy = {65, 20, 15, 100,80}; 
+    int[] cordx = {10,20,30,40,50};
     int marg = 60;  
       
     protected void paintComponent(Graphics grf){  
@@ -34,39 +35,30 @@ public class graphplot extends JPanel{
         graph.draw(new Line2D.Double(marg, marg, marg, height-marg));  
         graph.draw(new Line2D.Double(marg, height-marg, width-marg, height-marg));  
           
-        //find value of x and scale to plot points  
-        double x = (double)(width-2*marg)/(cord.length-1);  
-        double scale = (double)(height-2*marg)/getMax();  
+          
           
         //set color for points  
         graph.setPaint(Color.RED);  
           
         // set points to the graph  
-        for(int i=0; i<cord.length; i++){  
-            double x1 = marg+i*x;  
-            double y1 = height-marg-scale*cord[i];  
-            graph.fill(new Ellipse2D.Double(x1-2, y1-2, 4, 4));  
+        for(int i=0; i<5; i++){  
+            double x1 = marg+cordx[i];  
+            double y1 = height-marg-cordy[i];  
+            graph.fill(new Ellipse2D.Double(x1,y1 , 4, 4));  
+            
         }  
     }  
       
     //create getMax() method to find maximum value  
-    private int getMax(){  
-        int max = -Integer.MAX_VALUE;  
-        for(int i=0; i<cord.length; i++){  
-            if(cord[i]>max)  
-                max = cord[i];  
-             
-        }  
-        return max;  
-    }  
-    public static void main(String args[]){  
-        //create an instance of JFrame class  
-        JFrame frame = new JFrame();  
-        // set size, layout and location for frame.  
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        frame.add(new graphplot());  
-        frame.setSize(400, 400);  
-        frame.setLocation(200, 200);  
-        frame.setVisible(true);  
-    }  
+//    private int getMax(){  
+//        int max = -Integer.MAX_VALUE;  
+//        for(int i=0; i<cord.length; i++){  
+//            if(cord[i]>max)  
+//                max = cord[i];  
+//             
+//        }  
+//        return max;  
+//    }  
+
 }
+// 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
