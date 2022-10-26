@@ -1,7 +1,18 @@
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
+import org.json.*;
 import javax.swing.JPanel;
 
 public class Dashboard extends javax.swing.JFrame {
-
 
     public Dashboard() {
         initComponents();
@@ -163,18 +174,21 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 1100));
 
+        graphplot1.setBackground(new java.awt.Color(51, 51, 51));
+        graphplot1.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout graphplot1Layout = new javax.swing.GroupLayout(graphplot1);
         graphplot1.setLayout(graphplot1Layout);
         graphplot1Layout.setHorizontalGroup(
             graphplot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
         graphplot1Layout.setVerticalGroup(
             graphplot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
 
-        jPanel3.add(graphplot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 740, 400));
+        jPanel3.add(graphplot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 90, 570, 400));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1930, -1));
 
@@ -184,7 +198,7 @@ public class Dashboard extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException, InterruptedException  {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -212,7 +226,10 @@ public class Dashboard extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new Dashboard().setVisible(true);
             
-        });
+            
+        });         
+         
+      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
