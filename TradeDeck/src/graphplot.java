@@ -28,13 +28,13 @@ import org.json.JSONObject;
  * @author satyam
  */
 public class graphplot extends JPanel{
-    double[] cordy = new double[15]; 
-    int[] cordx = {10,20,30,40,50,60,70,80,90,100,110,120,130,140,150};
+    double[] cordy = new double[25]; 
+    int[] cordx = new int[25];
     int marg = 60;  
     
     public static double[]  api() throws IOException, InterruptedException {
         {
-        double[] values =new double[15]; 
+        double[] values =new double[25]; 
         
          
         String url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=R04RTX8ET873O08X";
@@ -53,7 +53,7 @@ public class graphplot extends JPanel{
             Set<String> key = time.keySet();
             String[] keys= key.toArray(new String[key.size()]);
             
-            for(int i=0; i<15; i++){
+            for(int i=0; i<25; i++){
                 String l=time.getJSONObject(keys[i]).getString("3. low");
                 values[i] = Double.parseDouble(l);
             }
@@ -94,24 +94,20 @@ public class graphplot extends JPanel{
         graph.setPaint(Color.RED);  
           
         // set points to the graph  
-        for(int i=0; i<cordx.length; i++){  
-            double x1 = marg+cordx[i];  
-            double y1 = height-marg-cordy[i]; 
-          
-            graph.fill(new Ellipse2D.Double(x1,y1 , 4, 4));
-            
-            
-        }  
+         
        
 
         try {
             cordy=api();
+            for(int i=0;i<=24;i++){
+                cordx[i]=(i+1)*10;
+            }
         } catch (IOException ex) {
             Logger.getLogger(graphplot.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(graphplot.class.getName()).log(Level.SEVERE, null, ex);
         }
-          for (int i=0;i<10;i++){
+          for (int i=0;i<25;i++){
               graph.fill(new Ellipse2D.Double(marg+cordx[i],height-marg-cordy[i], 4, 4));
           }
           
