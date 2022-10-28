@@ -7,7 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import java.util.Set;
+import java.util.*;
 
 
 import java.util.logging.Level;
@@ -28,6 +28,8 @@ import org.json.JSONObject;
  * @author satyam
  */
 public class graphplot extends JPanel{
+
+   
     double[] cordy = new double[25]; 
     int[] cordx = new int[25];
     int marg = 60;  
@@ -37,7 +39,7 @@ public class graphplot extends JPanel{
         double[] values =new double[25]; 
         
          
-        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&outputsize=full&apikey=R04RTX8ET873O08X";
+        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=GOOG&interval=5min&outputsize=full&apikey=R04RTX8ET873O08X";
         HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).build();
         HttpClient client = HttpClient.newBuilder().build();
         HttpResponse <String> response  =client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -53,8 +55,13 @@ public class graphplot extends JPanel{
             Set<String> key = time.keySet();
             String[] keys= key.toArray(new String[key.size()]);
             
+            String[] reversedkeys = new String[25];
+            for(int i =0; i<25;i++){
+                reversedkeys[i]=keys[keys.length-1-i];
+            }
+            
             for(int i=0; i<25; i++){
-                String l=time.getJSONObject(keys[i]).getString("3. low");
+                String l=time.getJSONObject(reversedkeys[i]).getString("3. low");
                 values[i] = Double.parseDouble(l);
             }
            return values;
