@@ -1,4 +1,8 @@
 
+import java.awt.Color;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -8,9 +12,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 
 import org.json.*;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class Dashboard extends javax.swing.JFrame {
     
@@ -68,7 +74,6 @@ public class Dashboard extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -214,25 +219,15 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel7.setForeground(new java.awt.Color(255, 102, 102));
-        jLabel7.setText("company");
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(214, 214, 214)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1025, Short.MAX_VALUE))
+            .addGap(0, 1389, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(483, Short.MAX_VALUE))
+            .addGap(0, 605, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -318,14 +313,14 @@ public class Dashboard extends javax.swing.JFrame {
         graphplot2.setLayout(graphplot2Layout);
         graphplot2Layout.setHorizontalGroup(
             graphplot2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 651, Short.MAX_VALUE)
+            .addGap(0, 970, Short.MAX_VALUE)
         );
         graphplot2Layout.setVerticalGroup(
             graphplot2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 454, Short.MAX_VALUE)
+            .addGap(0, 650, Short.MAX_VALUE)
         );
 
-        jPanel3.add(graphplot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, -1, -1));
+        jPanel3.add(graphplot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, 970, 650));
 
         jTabbedPane1.addTab("tab2", jPanel3);
 
@@ -361,10 +356,37 @@ public class Dashboard extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         String keyword = jTextField1.getText();
+        ArrayList<javax.swing.JLabel> companylabels = new ArrayList<javax.swing.JLabel>();
+        
 
         try {
             search(keyword);
-            jLabel7.setText(companies.get(0));
+            for(int i=0; i<companies.size();i++){
+                companylabels.add(new javax.swing.JLabel(companies.get(i) + "(" + symbols.get(i)+ ")"));
+                companylabels.get(i).setBounds(80, 80+(i*50), 150, 50);
+                companylabels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
+                String symbol = symbols.get(i);
+                companylabels.get(i).addMouseListener(new MouseAdapter(){
+                
+                    public void mousePressed(MouseEvent me){
+                        System.out.println(symbol);
+                        graphplot2.keyword = symbol;
+                        jTabbedPane1.setSelectedIndex(3);
+                
+                    }
+
+                });
+                
+            }
+            
+            jPanel7.removeAll();
+            for(int i =0 ;i<companylabels.size();i++){
+                
+                jPanel7.add(companylabels.get(i));
+                jPanel7.validate();
+                jPanel7.repaint();
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -424,7 +446,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

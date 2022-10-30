@@ -28,18 +28,18 @@ import org.json.JSONObject;
  * @author satyam
  */
 public class graphplot extends JPanel{
-
+    String keyword;
    
     double[] cordy = new double[25]; 
     int[] cordx = new int[25];
     int marg = 60;  
     
-    public static double[]  api() throws IOException, InterruptedException {
+    public static double[]  api(String keyword) throws IOException, InterruptedException {
         {
         double[] values =new double[25]; 
         
          
-        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=GOOG&interval=5min&outputsize=full&apikey=R04RTX8ET873O08X";
+        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+keyword+"&interval=5min&outputsize=full&apikey=R04RTX8ET873O08X";
         HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).build();
         HttpClient client = HttpClient.newBuilder().build();
         HttpResponse <String> response  =client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -105,9 +105,9 @@ public class graphplot extends JPanel{
        
 
         try {
-            cordy=api();
+            cordy=api(keyword);
             for(int i=0;i<=24;i++){
-                cordx[i]=(i+1)*10;
+                cordx[i]=(i+1)*20;
             }
         } catch (IOException ex) {
             Logger.getLogger(graphplot.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,11 +115,11 @@ public class graphplot extends JPanel{
             Logger.getLogger(graphplot.class.getName()).log(Level.SEVERE, null, ex);
         }
           for (int i=0;i<25;i++){
-              graph.fill(new Ellipse2D.Double(marg+cordx[i],height-marg-cordy[i], 4, 4));
+              graph.fill(new Ellipse2D.Double(marg+cordx[i],height-marg-(cordy[i]*3)+250, 4, 4));
           }
           
            for(int j=0; j<cordx.length-1;j++){
-            graph.draw(new Line2D.Double(marg+cordx[j],height-marg-cordy[j],marg+cordx[j+1],height-marg-cordy[j+1]));
+            graph.draw(new Line2D.Double(marg+cordx[j],height-marg-(cordy[j]*3)+250,marg+cordx[j+1],height-marg-(cordy[j+1]*3)+250));
 //                        
 //            
         }
