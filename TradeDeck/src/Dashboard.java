@@ -26,7 +26,7 @@ public class Dashboard extends javax.swing.JFrame {
     
     public static void search(String keyword) throws IOException, InterruptedException{
         String url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="+keyword+"&apikey=R04RTX8ET873O08X";
-        if(keyword!=" "){
+
             
         
             HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).build();
@@ -46,10 +46,10 @@ public class Dashboard extends javax.swing.JFrame {
                symbols.add(result.getString("1. symbol"));
                
                }
-               System.out.println(symbols.toString());
+               
     }
 
-    }
+    
 
     public Dashboard() {
         initComponents();
@@ -219,6 +219,8 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        jPanel7.setBackground(new java.awt.Color(51, 51, 51));
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -320,7 +322,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGap(0, 650, Short.MAX_VALUE)
         );
 
-        jPanel3.add(graphplot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, 970, 650));
+        jPanel3.add(graphplot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 970, 650));
 
         jTabbedPane1.addTab("tab2", jPanel3);
 
@@ -363,13 +365,13 @@ public class Dashboard extends javax.swing.JFrame {
             search(keyword);
             for(int i=0; i<companies.size();i++){
                 companylabels.add(new javax.swing.JLabel(companies.get(i) + "(" + symbols.get(i)+ ")"));
-                companylabels.get(i).setBounds(80, 80+(i*50), 150, 50);
+                companylabels.get(i).setBounds(410, 80+(i*50), 350, 50);
                 companylabels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
                 String symbol = symbols.get(i);
                 companylabels.get(i).addMouseListener(new MouseAdapter(){
                 
                     public void mousePressed(MouseEvent me){
-                        System.out.println(symbol);
+                        
                         graphplot2.keyword = symbol;
                         jTabbedPane1.setSelectedIndex(3);
                 
