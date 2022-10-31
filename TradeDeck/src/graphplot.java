@@ -39,7 +39,7 @@ public class graphplot extends JPanel{
         double[] values =new double[25]; 
         
          
-        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+keyword+"&interval=5min&outputsize=full&apikey=R04RTX8ET873O08X";
+        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="+keyword+"&outputsize=full&apikey=R04RTX8ET873O08X";
         HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).build();
         HttpClient client = HttpClient.newBuilder().build();
         HttpResponse <String> response  =client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -49,16 +49,21 @@ public class graphplot extends JPanel{
             JSONObject obj = new JSONObject(info);
             
  
-            JSONObject time = obj.getJSONObject("Time Series (5min)");
+            JSONObject time = obj.getJSONObject("Time Series (Daily)");
             
             
             Set<String> key = time.keySet();
             String[] keys= key.toArray(new String[key.size()]);
             
+            Arrays.sort(keys);
+            
             String[] reversedkeys = new String[25];
             for(int i =0; i<25;i++){
                 reversedkeys[i]=keys[keys.length-1-i];
             }
+            Arrays.sort(reversedkeys);
+
+            
             
             for(int i=0; i<25; i++){
                 String l=time.getJSONObject(reversedkeys[i]).getString("3. low");
@@ -92,23 +97,32 @@ public class graphplot extends JPanel{
         int height = getHeight();  
           
         // draw graph  
-        graph.draw(new Line2D.Double(marg, marg, marg, height-marg));  
-        graph.draw(new Line2D.Double(marg, height-marg, width-marg, height-marg));  
+        graph.draw(new Line2D.Double(marg+750, marg, marg+750, height-marg));  
+        graph.draw(new Line2D.Double(marg-width, height-marg, marg+750, height-marg));  
           
-          
+        graph.setPaint(new Color(82, 79, 79));  
+          for(int i=0;i<=24;i++){
+                cordx[i]=(i+1)*30;
+                if(i%2==0){
+                graph.draw(new Line2D.Double(marg-width,height - marg-(i+1)*20, marg+750,height - marg-(i+1)*20));
+                }
+                if(i==24){
+                    break;
+                }
+                graph.draw(new Line2D.Double(marg+(i+1)*30, marg, marg+(i+1)*30, height-marg));
+                
+            }  
          
         //set color for points  
         graph.setPaint(Color.RED);  
           
         // set points to the graph  
-         
-       
+
 
         try {
-            cordy=api(keyword);
-            for(int i=0;i<=24;i++){
-                cordx[i]=(i+1)*20;
-            }
+           
+         
+             cordy=api(keyword);
         } catch (IOException ex) {
             Logger.getLogger(graphplot.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
