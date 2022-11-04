@@ -34,6 +34,8 @@ public class graphplot extends JPanel{
     int[] cordx = new int[25];
     int marg = 60;  
     
+    static String[] dates = new String[25];
+    
     public static double[]  api(String keyword) throws IOException, InterruptedException {
         {
         double[] values =new double[25]; 
@@ -45,7 +47,7 @@ public class graphplot extends JPanel{
         HttpResponse <String> response  =client.send(request, HttpResponse.BodyHandlers.ofString());
         String info = response.body();
 
-            
+
             JSONObject obj = new JSONObject(info);
             
  
@@ -57,16 +59,15 @@ public class graphplot extends JPanel{
             
             Arrays.sort(keys);
             
-            String[] reversedkeys = new String[25];
             for(int i =0; i<25;i++){
-                reversedkeys[i]=keys[keys.length-1-i];
+                dates[i]=keys[keys.length-1-i];
             }
-            Arrays.sort(reversedkeys);
+            Arrays.sort(dates);
 
             
             
             for(int i=0; i<25; i++){
-                String l=time.getJSONObject(reversedkeys[i]).getString("3. low");
+                String l=time.getJSONObject(dates[i]).getString("3. low");
                 values[i] = Double.parseDouble(l);
             }
            return values;
@@ -114,15 +115,21 @@ public class graphplot extends JPanel{
             }  
          
         //set color for points  
-        graph.setPaint(Color.RED);  
-          
+             graph.setPaint(Color.RED);  
+
         // set points to the graph  
 
 
         try {
            
-         
+             graph.setFont(new Font("TimesRoman", Font.PLAIN, 8)); 
              cordy=api(keyword);
+             for(int i=0;i<=24;i++){
+                 if(i%2==0){
+                 graph.drawString(dates[i], marg+(i+1)*30-15, height-marg+20);
+             }
+             }
+
         } catch (IOException ex) {
             Logger.getLogger(graphplot.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
