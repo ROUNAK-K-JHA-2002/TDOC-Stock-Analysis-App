@@ -70,6 +70,7 @@ public class graphplot extends JPanel{
                 String l=time.getJSONObject(dates[i]).getString("3. low");
                 values[i] = Double.parseDouble(l);
             }
+            System.out.println(Arrays.toString(values));
            return values;
            
         }
@@ -122,20 +123,27 @@ public class graphplot extends JPanel{
 
         try {
            
-             graph.setFont(new Font("TimesRoman", Font.PLAIN, 8)); 
+             graph.setFont(new Font("TimesRoman", Font.PLAIN, 10)); 
              cordy=api(keyword);
              for(int i=0;i<=24;i++){
                  if(i%2==0){
-                 graph.drawString(dates[i], marg+(i+1)*30-15, height-marg+20);
+                 graph.drawString(dates[i], marg+(i+1)*30-25, height-marg+20);
+                 graph.drawString(Integer.toString(height-marg-343-((24-i)*7)),marg+770,height-marg-(i+1)*20);
+                 
              }
              }
-
+             
+//             for(int i=){
+//                 graph.drawString(Integer.toString((height-marg-(24-i-1))/3), marg+770,height-marg-(i+1)*20);
+//             }
+             
         } catch (IOException ex) {
             Logger.getLogger(graphplot.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(graphplot.class.getName()).log(Level.SEVERE, null, ex);
         }
           for (int i=0;i<25;i++){
+              
               graph.fill(new Ellipse2D.Double(marg+cordx[i],height-marg-(cordy[i]*3)+250, 4, 4));
           }
           
