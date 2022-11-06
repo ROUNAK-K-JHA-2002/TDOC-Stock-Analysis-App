@@ -55,7 +55,7 @@ public class graphplot extends JPanel{
         graph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);  
           
         // get width and height  
-        int width = getWidth();  
+
         int height = getHeight();  
 
         // draw graph  

@@ -1,5 +1,4 @@
 
-import static graphplot.dates;
 import java.awt.Color;
 import java.awt.Cursor;
 
@@ -10,15 +9,12 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 
 import org.json.*;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 public class Dashboard extends javax.swing.JFrame {
     
@@ -53,7 +49,10 @@ public class Dashboard extends javax.swing.JFrame {
                
     }
     static String[] dates = new String[25];
-    
+    static String low="";
+    static String high="";
+    static String open="";
+    static String close="";
     public static double[]  api(String keyword) throws IOException, InterruptedException {
         {
 
@@ -83,7 +82,11 @@ public class Dashboard extends javax.swing.JFrame {
             }
             Arrays.sort(dates);
 
+            low=(time.getJSONObject(dates[0]).getString("3. low"));
+            high=(time.getJSONObject(dates[0]).getString("2. high"));
+            open = (time.getJSONObject(dates[0]).getString("1. open"));
             
+            close = (time.getJSONObject(dates[0]).getString("4. close"));
             
             for(int i=0; i<25; i++){
                 String l=time.getJSONObject(dates[i]).getString("3. low");
@@ -120,17 +123,19 @@ public class Dashboard extends javax.swing.JFrame {
         search_textfield = new javax.swing.JTextField();
         searchbtn = new javax.swing.JButton();
         search_result_panel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        watchlist_tab = new javax.swing.JPanel();
+        portfolio_tab = new javax.swing.JPanel();
+        company_page = new javax.swing.JPanel();
+        graphplot2 = new graphplot();
+        stats_panel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Low_label = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         high_label = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        avg_label = new javax.swing.JLabel();
-        watchlist_tab = new javax.swing.JPanel();
-        portfolio_tab = new javax.swing.JPanel();
-        company_page = new javax.swing.JPanel();
-        graphplot2 = new graphplot();
+        open_label = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        close_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(121, 121));
@@ -272,87 +277,6 @@ public class Dashboard extends javax.swing.JFrame {
             .addGap(0, 607, Short.MAX_VALUE)
         );
 
-        Low_label.setText("Todays lowest stock");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Low_label)
-                .addGap(55, 55, 55))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
-                .addComponent(Low_label)
-                .addGap(38, 38, 38))
-        );
-
-        high_label.setText("Todays Highest Stock");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(high_label)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
-                .addComponent(high_label)
-                .addGap(40, 40, 40))
-        );
-
-        avg_label.setText("Average");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(avg_label)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addComponent(avg_label)
-                .addGap(31, 31, 31))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(272, 272, 272)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(390, 390, 390)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(440, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout home_panelLayout = new javax.swing.GroupLayout(home_panel);
         home_panel.setLayout(home_panelLayout);
         home_panelLayout.setHorizontalGroup(
@@ -362,15 +286,10 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(search_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(searchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(1095, Short.MAX_VALUE))
             .addGroup(home_panelLayout.createSequentialGroup()
-                .addGroup(home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(home_panelLayout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(search_result_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(home_panelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(136, 136, 136)
+                .addComponent(search_result_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         home_panelLayout.setVerticalGroup(
@@ -380,9 +299,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(search_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
                 .addComponent(search_result_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -449,7 +366,120 @@ public class Dashboard extends javax.swing.JFrame {
             .addGap(0, 650, Short.MAX_VALUE)
         );
 
-        company_page.add(graphplot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 1370, 650));
+        company_page.add(graphplot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 1370, 650));
+
+        Low_label.setText("Todays lowest stock");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 313, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(Low_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(43, 43, 43)
+                    .addComponent(Low_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(43, 43, 43)))
+        );
+
+        high_label.setText("Todays Highest Stock");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(high_label, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(high_label, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addGap(29, 29, 29))
+        );
+
+        open_label.setText("open");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(open_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(open_label, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
+        );
+
+        close_label.setText("close");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(close_label, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(close_label, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addGap(31, 31, 31))
+        );
+
+        javax.swing.GroupLayout stats_panelLayout = new javax.swing.GroupLayout(stats_panel);
+        stats_panel.setLayout(stats_panelLayout);
+        stats_panelLayout.setHorizontalGroup(
+            stats_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stats_panelLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(114, 114, 114)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        stats_panelLayout.setVerticalGroup(
+            stats_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(stats_panelLayout.createSequentialGroup()
+                .addGroup(stats_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(stats_panelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(stats_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(stats_panelLayout.createSequentialGroup()
+                        .addContainerGap(28, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        company_page.add(stats_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 140));
 
         jTabbedPane1.addTab("tab4", company_page);
 
@@ -499,6 +529,13 @@ public class Dashboard extends javax.swing.JFrame {
                         try {
                             graphplot2.cordy= api(symbol);
                             graphplot2.dates=dates;
+                            
+                            Low_label.setText("Today's lowest stock : "+(low));
+                            high_label.setText("Todays's highses stock :" +high);
+                            open_label.setText("Todays's highses stock :" +open);
+                            close_label.setText("Todays's highses stock :" +close);
+                            
+
                         } catch (IOException ex) {
                             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (InterruptedException ex) {
@@ -572,25 +609,27 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton Homebtn;
     private javax.swing.JLabel Low_label;
     private javax.swing.JButton Wtchlstbtn;
-    private javax.swing.JLabel avg_label;
+    private javax.swing.JLabel close_label;
     private javax.swing.JPanel company_page;
     private graphplot graphplot2;
     private javax.swing.JLabel high_label;
     private javax.swing.JPanel home_panel;
     private javax.swing.JPanel home_tab;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel logo_label;
+    private javax.swing.JLabel open_label;
     private javax.swing.JPanel portfolio_tab;
     private javax.swing.JButton portfoliobtn;
     private javax.swing.JPanel search_result_panel;
     private javax.swing.JTextField search_textfield;
     private javax.swing.JButton searchbtn;
     private javax.swing.JPanel sidebar;
+    private javax.swing.JPanel stats_panel;
     private javax.swing.JLabel title_label;
     private javax.swing.JPanel topbar;
     private javax.swing.JPanel watchlist_tab;
