@@ -40,6 +40,7 @@ public class LoginPage extends javax.swing.JFrame {
         Username_Label2 = new javax.swing.JLabel();
         Username_Label3 = new javax.swing.JLabel();
         Project_Label = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -88,9 +89,9 @@ public class LoginPage extends javax.swing.JFrame {
 
         getContentPane().add(Container_left, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, 0, -1, 600));
 
-        Container_Right.setBackground(new java.awt.Color(51, 51, 255));
+        Container_Right.setBackground(new java.awt.Color(255, 102, 102));
 
-        Login_Container.setBackground(new java.awt.Color(102, 75, 233));
+        Login_Container.setBackground(new java.awt.Color(255, 153, 153));
 
         LoginText.setFont(new java.awt.Font("DejaVu Serif", 0, 36)); // NOI18N
         LoginText.setText("LOGIN");
@@ -102,7 +103,7 @@ public class LoginPage extends javax.swing.JFrame {
         Username_Label1.setFont(new java.awt.Font("Lohit Devanagari", 0, 18)); // NOI18N
         Username_Label1.setText("User Name : ");
 
-        UserName_Input.setBackground(new java.awt.Color(102, 153, 255));
+        UserName_Input.setBackground(new java.awt.Color(255, 153, 153));
         UserName_Input.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         UserName_Input.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         UserName_Input.setToolTipText("Enter Username");
@@ -115,6 +116,7 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
+        Password_Input.setBackground(new java.awt.Color(255, 153, 153));
         Password_Input.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         Password_Input.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Password_Input.setToolTipText("Enter Password");
@@ -200,6 +202,15 @@ public class LoginPage extends javax.swing.JFrame {
         Project_Label.setToolTipText("");
         Project_Label.setAlignmentX(0.2F);
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel4.setText("X");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout Container_RightLayout = new javax.swing.GroupLayout(Container_Right);
         Container_Right.setLayout(Container_RightLayout);
         Container_RightLayout.setHorizontalGroup(
@@ -210,13 +221,19 @@ public class LoginPage extends javax.swing.JFrame {
                 .addContainerGap(103, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Container_RightLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Project_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117))
+                .addGroup(Container_RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Container_RightLayout.createSequentialGroup()
+                        .addComponent(Project_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(117, 117, 117))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Container_RightLayout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))))
         );
         Container_RightLayout.setVerticalGroup(
             Container_RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Container_RightLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(Project_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Login_Container, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,6 +257,10 @@ public class LoginPage extends javax.swing.JFrame {
     private void Username_Label3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Username_Label3MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_Username_Label3MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -292,5 +313,6 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }
