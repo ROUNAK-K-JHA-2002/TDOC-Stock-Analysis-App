@@ -23,7 +23,7 @@ public class Dashboard extends javax.swing.JFrame {
     static ArrayList<String> symbols = new ArrayList<String>();;
     
     public static void search(String keyword) throws IOException, InterruptedException{
-        String url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="+keyword+"&apikey=R04RTX8ET873O08X";
+        String url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="+keyword+"&apikey=MEZW029W7JVVITIC";
             companies.clear();
             symbols.clear();
             
@@ -33,7 +33,7 @@ public class Dashboard extends javax.swing.JFrame {
             HttpClient client = HttpClient.newBuilder().build();
             HttpResponse <String> response  =client.send(request, HttpResponse.BodyHandlers.ofString());
 //           
-
+              
                 
                 JSONObject searchResults = new JSONObject(response.body());
                 JSONArray bestMatches = searchResults.getJSONArray("bestMatches");
@@ -49,23 +49,28 @@ public class Dashboard extends javax.swing.JFrame {
                
     }
     static String[] dates = new String[25];
+    static double[]cordy= new double[25];
+    static int[] lowvalues=new int[25];
+    static int[] highvalues=new int[25];
+    static int[] openvalues=new int[25];
+    static int[] closevalues=new int[25];
+    
     static String low="";
     static String high="";
     static String open="";
     static String close="";
-    public static double[]  api(String keyword) throws IOException, InterruptedException {
+    public static void  api(String keyword) throws IOException, InterruptedException {
         {
 
         double[] values =new double[25]; 
         
          
-        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="+keyword+"&outputsize=full&apikey=R04RTX8ET873O08X";
+        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol="+keyword+"&outputsize=full&apikey=MEZW029W7JVVITIC";
         HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).build();
         HttpClient client = HttpClient.newBuilder().build();
         HttpResponse <String> response  =client.send(request, HttpResponse.BodyHandlers.ofString());
         String info = response.body();
-
-
+          
             JSONObject obj = new JSONObject(info);
             
  
@@ -91,9 +96,19 @@ public class Dashboard extends javax.swing.JFrame {
             for(int i=0; i<25; i++){
                 String l=time.getJSONObject(dates[i]).getString("3. low");
                 values[i] = Double.parseDouble(l);
+                lowvalues[i] =(int) Double.parseDouble(l);
+                String h=time.getJSONObject(dates[i]).getString("2. high");
+                highvalues[i] = (int)Double.parseDouble(h);
+                String o=time.getJSONObject(dates[i]).getString("1. open");
+                openvalues[i] =(int) Double.parseDouble(o);
+                String c=time.getJSONObject(dates[i]).getString("4. close");
+                closevalues[i] = (int)Double.parseDouble(c);
+                
             }
+            
+            cordy=values;
 
-           return values;
+           
            
         }
     };
@@ -116,17 +131,14 @@ public class Dashboard extends javax.swing.JFrame {
         sidebar = new javax.swing.JPanel();
         Homebtn = new javax.swing.JButton();
         Wtchlstbtn = new javax.swing.JButton();
-        portfoliobtn = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        Tabbed_Panel = new javax.swing.JTabbedPane();
         home_tab = new javax.swing.JPanel();
         home_panel = new javax.swing.JPanel();
         search_textfield = new javax.swing.JTextField();
         searchbtn = new javax.swing.JButton();
         search_result_panel = new javax.swing.JPanel();
         watchlist_tab = new javax.swing.JPanel();
-        portfolio_tab = new javax.swing.JPanel();
         company_page = new javax.swing.JPanel();
-        graphplot2 = new graphplot();
         stats_panel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Low_label = new javax.swing.JLabel();
@@ -136,6 +148,11 @@ public class Dashboard extends javax.swing.JFrame {
         open_label = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         close_label = new javax.swing.JLabel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        graphplot2 = new graphplot();
+        jPanel6 = new javax.swing.JPanel();
+        candlestick1 = new Candlestick();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(121, 121));
@@ -207,25 +224,12 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        portfoliobtn.setBackground(new java.awt.Color(0, 0, 0));
-        portfoliobtn.setForeground(new java.awt.Color(255, 102, 102));
-        portfoliobtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/portfolio_white.png"))); // NOI18N
-        portfoliobtn.setText("Portfolio");
-        portfoliobtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(102, 102, 102)));
-        portfoliobtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        portfoliobtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                portfoliobtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
         sidebar.setLayout(sidebarLayout);
         sidebarLayout.setHorizontalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Wtchlstbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
             .addComponent(Homebtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(portfoliobtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         sidebarLayout.setVerticalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,16 +238,14 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(Homebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Wtchlstbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(portfoliobtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(641, Short.MAX_VALUE))
+                .addContainerGap(702, Short.MAX_VALUE))
         );
 
         getContentPane().add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 330, 920));
 
-        jTabbedPane1.setBackground(new java.awt.Color(51, 51, 51));
-        jTabbedPane1.setForeground(new java.awt.Color(204, 204, 204));
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1600, 1000));
+        Tabbed_Panel.setBackground(new java.awt.Color(51, 51, 51));
+        Tabbed_Panel.setForeground(new java.awt.Color(204, 204, 204));
+        Tabbed_Panel.setPreferredSize(new java.awt.Dimension(1600, 1000));
 
         home_tab.setBackground(new java.awt.Color(255, 255, 255));
         home_tab.setForeground(new java.awt.Color(0, 0, 0));
@@ -274,7 +276,7 @@ public class Dashboard extends javax.swing.JFrame {
         );
         search_result_panelLayout.setVerticalGroup(
             search_result_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 607, Short.MAX_VALUE)
+            .addGap(0, 757, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout home_panelLayout = new javax.swing.GroupLayout(home_panel);
@@ -283,14 +285,15 @@ public class Dashboard extends javax.swing.JFrame {
             home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(home_panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(search_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(searchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1095, Short.MAX_VALUE))
-            .addGroup(home_panelLayout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(search_result_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(home_panelLayout.createSequentialGroup()
+                        .addComponent(search_result_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(home_panelLayout.createSequentialGroup()
+                        .addComponent(search_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(searchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1095, 1095, 1095))))
         );
         home_panelLayout.setVerticalGroup(
             home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,9 +302,9 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(search_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
                 .addComponent(search_result_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout home_tabLayout = new javax.swing.GroupLayout(home_tab);
@@ -320,7 +323,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        jTabbedPane1.addTab("tab1", home_tab);
+        Tabbed_Panel.addTab("tab1", home_tab);
 
         javax.swing.GroupLayout watchlist_tabLayout = new javax.swing.GroupLayout(watchlist_tab);
         watchlist_tab.setLayout(watchlist_tabLayout);
@@ -333,40 +336,11 @@ public class Dashboard extends javax.swing.JFrame {
             .addGap(0, 1024, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab3", watchlist_tab);
-
-        javax.swing.GroupLayout portfolio_tabLayout = new javax.swing.GroupLayout(portfolio_tab);
-        portfolio_tab.setLayout(portfolio_tabLayout);
-        portfolio_tabLayout.setHorizontalGroup(
-            portfolio_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1595, Short.MAX_VALUE)
-        );
-        portfolio_tabLayout.setVerticalGroup(
-            portfolio_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab4", portfolio_tab);
+        Tabbed_Panel.addTab("tab3", watchlist_tab);
 
         company_page.setBackground(new java.awt.Color(51, 51, 51));
         company_page.setForeground(new java.awt.Color(102, 102, 102));
         company_page.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        graphplot2.setBackground(new java.awt.Color(51, 51, 51));
-        graphplot2.setForeground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout graphplot2Layout = new javax.swing.GroupLayout(graphplot2);
-        graphplot2.setLayout(graphplot2Layout);
-        graphplot2Layout.setHorizontalGroup(
-            graphplot2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1370, Short.MAX_VALUE)
-        );
-        graphplot2Layout.setVerticalGroup(
-            graphplot2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
-        );
-
-        company_page.add(graphplot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 1370, 650));
 
         Low_label.setText("Todays lowest stock");
 
@@ -437,8 +411,8 @@ public class Dashboard extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(close_label, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addComponent(close_label, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,29 +453,89 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        company_page.add(stats_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 140));
+        company_page.add(stats_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, 140));
 
-        jTabbedPane1.addTab("tab4", company_page);
+        graphplot2.setBackground(new java.awt.Color(51, 51, 51));
+        graphplot2.setForeground(new java.awt.Color(153, 153, 153));
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, -30, -1, 1050));
+        javax.swing.GroupLayout graphplot2Layout = new javax.swing.GroupLayout(graphplot2);
+        graphplot2.setLayout(graphplot2Layout);
+        graphplot2Layout.setHorizontalGroup(
+            graphplot2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 899, Short.MAX_VALUE)
+        );
+        graphplot2Layout.setVerticalGroup(
+            graphplot2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 650, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(graphplot2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(175, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(graphplot2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("raw", jPanel1);
+
+        javax.swing.GroupLayout candlestick1Layout = new javax.swing.GroupLayout(candlestick1);
+        candlestick1.setLayout(candlestick1Layout);
+        candlestick1Layout.setHorizontalGroup(
+            candlestick1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 996, Short.MAX_VALUE)
+        );
+        candlestick1Layout.setVerticalGroup(
+            candlestick1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 670, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addComponent(candlestick1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(candlestick1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
+        );
+
+        jTabbedPane2.addTab("candlestick", jPanel6);
+
+        company_page.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 1230, 710));
+
+        Tabbed_Panel.addTab("tab4", company_page);
+
+        getContentPane().add(Tabbed_Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, -30, -1, 1050));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void HomebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomebtnActionPerformed
         // TODO add your handling code here:
-        jTabbedPane1.setSelectedIndex(0);
+        Tabbed_Panel.setSelectedIndex(0);
     }//GEN-LAST:event_HomebtnActionPerformed
 
     private void WtchlstbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WtchlstbtnActionPerformed
         // TODO add your handling code here:
-        jTabbedPane1.setSelectedIndex(1);
+        Tabbed_Panel.setSelectedIndex(1);
     }//GEN-LAST:event_WtchlstbtnActionPerformed
-
-    private void portfoliobtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_portfoliobtnActionPerformed
-        // TODO add your handling code here:
-        jTabbedPane1.setSelectedIndex(2);
-    }//GEN-LAST:event_portfoliobtnActionPerformed
 
     private void search_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_textfieldActionPerformed
         // TODO add your handling code here:
@@ -527,13 +561,19 @@ public class Dashboard extends javax.swing.JFrame {
                     public void mousePressed(MouseEvent me){
                         
                         try {
-                            graphplot2.cordy= api(symbol);
+                            api(symbol);
+                            graphplot2.cordy=cordy;
                             graphplot2.dates=dates;
+                            candlestick1.high=highvalues;
+                            candlestick1.low = lowvalues;
+                            candlestick1.close=closevalues;
+                            candlestick1.open=openvalues;
+
                             
                             Low_label.setText("Today's lowest stock : "+(low));
-                            high_label.setText("Todays's highses stock :" +high);
-                            open_label.setText("Todays's highses stock :" +open);
-                            close_label.setText("Todays's highses stock :" +close);
+                            high_label.setText("Todays's highsest stock :" +high);
+                            open_label.setText("Todays's openning stock :" +open);
+                            close_label.setText("Todays's closing stock :" +close);
                             
 
                         } catch (IOException ex) {
@@ -543,7 +583,7 @@ public class Dashboard extends javax.swing.JFrame {
                         }
                         
                        
-                        jTabbedPane1.setSelectedIndex(3);
+                        Tabbed_Panel.setSelectedIndex(2);
                 
                     }
 
@@ -608,7 +648,9 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Homebtn;
     private javax.swing.JLabel Low_label;
+    private javax.swing.JTabbedPane Tabbed_Panel;
     private javax.swing.JButton Wtchlstbtn;
+    private Candlestick candlestick1;
     private javax.swing.JLabel close_label;
     private javax.swing.JPanel company_page;
     private graphplot graphplot2;
@@ -616,15 +658,15 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel home_panel;
     private javax.swing.JPanel home_tab;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel logo_label;
     private javax.swing.JLabel open_label;
-    private javax.swing.JPanel portfolio_tab;
-    private javax.swing.JButton portfoliobtn;
     private javax.swing.JPanel search_result_panel;
     private javax.swing.JTextField search_textfield;
     private javax.swing.JButton searchbtn;
