@@ -197,7 +197,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Username_Label2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="Username_Label3" min="-2" max="-2" attributes="0"/>
+                      <Component id="New_User_Btn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -227,7 +227,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Username_Label2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="Username_Label3" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="New_User_Btn" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                   </Group>
@@ -326,6 +326,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Login_BtnMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="Username_Label2">
               <Properties>
@@ -338,7 +341,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Username_Label2MouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="Username_Label3">
+            <Component class="javax.swing.JLabel" name="New_User_Btn">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lohit Devanagari" size="14" style="1"/>
@@ -346,7 +349,7 @@
                 <Property name="text" type="java.lang.String" value="New User?"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Username_Label3MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="New_User_BtnMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
