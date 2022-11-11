@@ -1,3 +1,15 @@
+
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import javax.swing.JFrame;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -38,7 +50,7 @@ public class LoginPage extends javax.swing.JFrame {
         Password_Input = new javax.swing.JPasswordField();
         Login_Btn = new javax.swing.JButton();
         Username_Label2 = new javax.swing.JLabel();
-        Username_Label3 = new javax.swing.JLabel();
+        New_User_Btn = new javax.swing.JLabel();
         Project_Label = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -128,6 +140,11 @@ public class LoginPage extends javax.swing.JFrame {
         Login_Btn.setFont(new java.awt.Font("Nimbus Mono L", 1, 24)); // NOI18N
         Login_Btn.setText("Login");
         Login_Btn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 51, 51), 1, true));
+        Login_Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Login_BtnActionPerformed(evt);
+            }
+        });
 
         Username_Label2.setFont(new java.awt.Font("Lohit Devanagari", 1, 14)); // NOI18N
         Username_Label2.setText("Forgot Password ?");
@@ -137,11 +154,11 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        Username_Label3.setFont(new java.awt.Font("Lohit Devanagari", 1, 14)); // NOI18N
-        Username_Label3.setText("New User?");
-        Username_Label3.addMouseListener(new java.awt.event.MouseAdapter() {
+        New_User_Btn.setFont(new java.awt.Font("Lohit Devanagari", 1, 14)); // NOI18N
+        New_User_Btn.setText("New User?");
+        New_User_Btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Username_Label3MouseClicked(evt);
+                New_User_BtnMouseClicked(evt);
             }
         });
 
@@ -168,7 +185,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(Username_Label2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Username_Label3)
+                .addComponent(New_User_Btn)
                 .addGap(27, 27, 27))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Login_ContainerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -193,7 +210,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(Login_ContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Username_Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Username_Label3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(New_User_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(87, 87, 87))
         );
 
@@ -254,13 +271,65 @@ public class LoginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Username_Label2MouseClicked
 
-    private void Username_Label3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Username_Label3MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Username_Label3MouseClicked
+    private void New_User_BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_New_User_BtnMouseClicked
+        RegisterPage rgp = new RegisterPage();
+        rgp.setVisible(true);
+        rgp.pack();
+        rgp.setLocationRelativeTo(null);
+        rgp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_New_User_BtnMouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    public String HashingPwd(String Password){
+        
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA");
+            messageDigest.update(Password.getBytes());
+            byte[] resultbyteArray = messageDigest.digest();
+            StringBuilder sb = new StringBuilder();
+            for(byte b : resultbyteArray){
+                sb.append(String.format("%02x", b));
+                
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(RegisterPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       
+        return "";
+    }
+    private void Login_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_BtnActionPerformed
+ PreparedStatement ps;
+        ResultSet rs;
+        String Username = UserName_Input.getText();
+        String Password = String.valueOf(Password_Input.getPassword());
+        String hashedPsswd = HashingPwd(Password);
+        String query ="SELECT * FROM Users WHERE User_Name = '"+ Username + "' AND Password = '"+ hashedPsswd +"' ";
+        
+        try {
+            ps = SqlConnection.getConnection().prepareStatement(query);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null, "Login Succesfull");
+                Dashboard ds = new Dashboard();
+                 ds.setVisible(true);
+        ds.pack();
+        ds.setLocationRelativeTo(null);
+        ds.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Invalid Credentials");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_Login_BtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,13 +372,13 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel LoginText;
     private javax.swing.JButton Login_Btn;
     private javax.swing.JPanel Login_Container;
+    private javax.swing.JLabel New_User_Btn;
     private javax.swing.JPasswordField Password_Input;
     private javax.swing.JLabel Project_Label;
     private javax.swing.JTextField UserName_Input;
     private javax.swing.JLabel Username_Label;
     private javax.swing.JLabel Username_Label1;
     private javax.swing.JLabel Username_Label2;
-    private javax.swing.JLabel Username_Label3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

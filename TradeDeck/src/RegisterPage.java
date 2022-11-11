@@ -2,6 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -277,6 +279,25 @@ public class RegisterPage extends javax.swing.JFrame {
       
     }//GEN-LAST:event_Register_BtnMouseClicked
 
+    public String HashingPwd(String Password){
+        
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA");
+            messageDigest.update(Password.getBytes());
+            byte[] resultbyteArray = messageDigest.digest();
+            StringBuilder sb = new StringBuilder();
+            for(byte b : resultbyteArray){
+                sb.append(String.format("%02x", b));
+                
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(RegisterPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       
+        return "";
+    }
     private void Register_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Register_BtnActionPerformed
           String FirstName = FirstName_Input.getText();
           String LastName = LastName_Input.getText();
@@ -285,7 +306,7 @@ public class RegisterPage extends javax.swing.JFrame {
           String Psswd = String.valueOf(Password_Input.getPassword());
           String CnfPsswd = String.valueOf(CnfPassword_Input.getPassword());
           String Email_Regex = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/";
-          
+         
           if(FirstName.isBlank()){
                JOptionPane.showMessageDialog(null, "Enter A Valid FirstName");
           }
@@ -313,8 +334,8 @@ public class RegisterPage extends javax.swing.JFrame {
           
           else{
               PreparedStatement ps;
-       
-          String query = "INSERT INTO Users (PersonId,First_Name,Last_Name,User_name,Email,Password)" + "VALUES (1,'" +FirstName+"','" +LastName+"','" +UserName+"','" +Email+"','" +Psswd+"') ";
+        String HashedPassword = HashingPwd(Psswd);
+          String query = "INSERT INTO Users (PersonId,First_Name,Last_Name,User_name,Email,Password)" + "VALUES (1,'" +FirstName+"','" +LastName+"','" +UserName+"','" +Email+"','" +HashedPassword+"') ";
         try {
             ps = SqlConnection.getConnection().prepareStatement(query);
            
