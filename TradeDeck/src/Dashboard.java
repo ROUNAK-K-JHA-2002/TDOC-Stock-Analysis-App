@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 import org.json.*;
 
@@ -24,6 +25,7 @@ public class Dashboard extends javax.swing.JFrame {
     
 //    annn bnn ka tola jo naa nache bhen ka loda
     String username;
+    String wtchlistnew;
     ArrayList<String> watchlistarray = new ArrayList<String>();
     public ArrayList<String> getWatchlist(String username) throws SQLException{
         PreparedStatement prepstat;
@@ -45,6 +47,8 @@ public class Dashboard extends javax.swing.JFrame {
         return wlist;
         
     }
+    
+
     
     static ArrayList<String> companies = new ArrayList<String>();
     static ArrayList<String> symbols = new ArrayList<String>();;
@@ -645,7 +649,7 @@ public class Dashboard extends javax.swing.JFrame {
                             candlestick1.low = lowvalues;
                             candlestick1.close=closevalues;
                             candlestick1.open=openvalues;
-
+                            wtchlistnew=symbol;
                             
                             Low_label.setText("Today's lowest stock : "+(low));
                             high_label.setText("Todays's highsest stock :" +high);
@@ -685,7 +689,17 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_searchbtnActionPerformed
 
     private void add_watchlistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_watchlistActionPerformed
-        // TODO add your handling code here:
+        PreparedStatement prep;
+        String query = "INSERT INTO Watchlist VALUES ('" + username + "', '"+wtchlistnew + "');";
+        try {
+            prep = SqlConnection.getConnection().prepareStatement(query);
+            if(prep.executeUpdate() > 0){
+               JOptionPane.showMessageDialog(null, "Added to Watchlist");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_add_watchlistActionPerformed
 
     /**
