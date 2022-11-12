@@ -40,8 +40,7 @@ public class Dashboard extends javax.swing.JFrame {
         while(results.next()) {   // Repeatedly process each row
       // retrieve a 'String'-cell in the row
             String user_company = results.getString("Company"); 
-      // retrieve a 'int'-cell in the row
-            System.out.println(  user_company + ", " );
+
             wlist.add(user_company);
             ++rowCount;
          }
@@ -611,7 +610,7 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         
-        System.out.println("user : "+this.username);
+
         try {
             watchlistarray = getWatchlist(username);
             ArrayList<javax.swing.JLabel> wtchlistlabels = new ArrayList<javax.swing.JLabel>();
@@ -620,9 +619,39 @@ public class Dashboard extends javax.swing.JFrame {
                wtchlistlabels.get(i).setBounds(410, 80+(i*50), 350, 50);
                wtchlistlabels.get(i).setCursor(new Cursor(Cursor.HAND_CURSOR));
                wtchlistlabels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
-            }
+               String symbol=watchlistarray.get(i);
             
-            Tabbed_Panel.setSelectedIndex(1);
+                wtchlistlabels.get(i).addMouseListener(new MouseAdapter(){
+                
+                    public void mousePressed(MouseEvent me){
+                        
+                        try {
+                            api(symbol);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        graphplot2.cordy=cordy;
+                        graphplot2.dates=dates;
+                        candlestick1.high=highvalues;
+                        candlestick1.low = lowvalues;
+                        candlestick1.close=closevalues;
+                        candlestick1.open=openvalues;
+                        wtchlistnew=symbol;
+                        Low_label.setText("Today's lowest stock : "+(low));
+                        high_label.setText("Todays's highsest stock :" +high);
+                        open_label.setText("Todays's openning stock :" +open);
+                        close_label.setText("Todays's closing stock :" +close);
+                        
+                       
+                        Tabbed_Panel.setSelectedIndex(2);
+                
+                    }
+
+                });
+            }
+             Tabbed_Panel.setSelectedIndex(1);
             wtchlistpanel.removeAll();
             for(int i =0;i<wtchlistlabels.size();i++){
                 wtchlistpanel.add(wtchlistlabels.get(i));
