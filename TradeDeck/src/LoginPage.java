@@ -317,7 +317,8 @@ public class LoginPage extends javax.swing.JFrame {
             if(rs.next()){
                 JOptionPane.showMessageDialog(null, "Login Succesfull");
                 Dashboard ds = new Dashboard();
-                 ds.setVisible(true);
+                ds.username=Username;
+                ds.setVisible(true);
         ds.pack();
         ds.setLocationRelativeTo(null);
         ds.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

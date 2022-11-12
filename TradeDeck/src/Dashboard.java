@@ -14,10 +14,37 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+
 import org.json.*;
 
 public class Dashboard extends javax.swing.JFrame {
     
+//    annn bnn ka tola jo naa nache bhen ka loda
+    String username;
+    ArrayList<String> watchlistarray = new ArrayList<String>();
+    public ArrayList<String> getWatchlist(String username) throws SQLException{
+        PreparedStatement prepstat;
+        ResultSet results;
+        ArrayList<String> wlist = new ArrayList<String>();
+        String query = "SELECt * FROM Watchlist where User_Name = '" + username + "';";
+        prepstat = SqlConnection.getConnection().prepareStatement(query);
+        results = prepstat.executeQuery();
+        int rowCount = 0;
+
+        while(results.next()) {   // Repeatedly process each row
+      // retrieve a 'String'-cell in the row
+            String user_company = results.getString("Company"); 
+      // retrieve a 'int'-cell in the row
+            System.out.println(  user_company + ", " );
+            wlist.add(user_company);
+            ++rowCount;
+         }
+        return wlist;
+        
+    }
     
     static ArrayList<String> companies = new ArrayList<String>();
     static ArrayList<String> symbols = new ArrayList<String>();;
@@ -138,6 +165,7 @@ public class Dashboard extends javax.swing.JFrame {
         searchbtn = new javax.swing.JButton();
         search_result_panel = new javax.swing.JPanel();
         watchlist_tab = new javax.swing.JPanel();
+        wtchlistpanel = new javax.swing.JPanel();
         company_page = new javax.swing.JPanel();
         stats_panel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -153,6 +181,7 @@ public class Dashboard extends javax.swing.JFrame {
         graphplot2 = new graphplot();
         jPanel6 = new javax.swing.JPanel();
         candlestick1 = new Candlestick();
+        add_watchlist = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(121, 121));
@@ -325,15 +354,32 @@ public class Dashboard extends javax.swing.JFrame {
 
         Tabbed_Panel.addTab("tab1", home_tab);
 
+        javax.swing.GroupLayout wtchlistpanelLayout = new javax.swing.GroupLayout(wtchlistpanel);
+        wtchlistpanel.setLayout(wtchlistpanelLayout);
+        wtchlistpanelLayout.setHorizontalGroup(
+            wtchlistpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1295, Short.MAX_VALUE)
+        );
+        wtchlistpanelLayout.setVerticalGroup(
+            wtchlistpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 823, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout watchlist_tabLayout = new javax.swing.GroupLayout(watchlist_tab);
         watchlist_tab.setLayout(watchlist_tabLayout);
         watchlist_tabLayout.setHorizontalGroup(
             watchlist_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1595, Short.MAX_VALUE)
+            .addGroup(watchlist_tabLayout.createSequentialGroup()
+                .addGap(156, 156, 156)
+                .addComponent(wtchlistpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         watchlist_tabLayout.setVerticalGroup(
             watchlist_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
+            .addGroup(watchlist_tabLayout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(wtchlistpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         Tabbed_Panel.addTab("tab3", watchlist_tab);
@@ -520,6 +566,14 @@ public class Dashboard extends javax.swing.JFrame {
 
         company_page.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 1230, 710));
 
+        add_watchlist.setText("Add to Watchlist");
+        add_watchlist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_watchlistActionPerformed(evt);
+            }
+        });
+        company_page.add(add_watchlist, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 330, -1, -1));
+
         Tabbed_Panel.addTab("tab4", company_page);
 
         getContentPane().add(Tabbed_Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, -30, -1, 1050));
@@ -534,7 +588,30 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void WtchlstbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WtchlstbtnActionPerformed
         // TODO add your handling code here:
-        Tabbed_Panel.setSelectedIndex(1);
+        
+        
+        System.out.println("user : "+this.username);
+        try {
+            watchlistarray = getWatchlist(username);
+            ArrayList<javax.swing.JLabel> wtchlistlabels = new ArrayList<javax.swing.JLabel>();
+            for(int i=0;i<watchlistarray.size();i++){
+               wtchlistlabels.add(new javax.swing.JLabel(watchlistarray.get(i)));
+               wtchlistlabels.get(i).setBounds(410, 80+(i*50), 350, 50);
+               wtchlistlabels.get(i).setCursor(new Cursor(Cursor.HAND_CURSOR));
+               wtchlistlabels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
+            }
+            
+            Tabbed_Panel.setSelectedIndex(1);
+            wtchlistpanel.removeAll();
+            for(int i =0;i<wtchlistlabels.size();i++){
+                wtchlistpanel.add(wtchlistlabels.get(i));
+                wtchlistpanel.validate();
+                wtchlistpanel.repaint();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_WtchlstbtnActionPerformed
 
     private void search_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_textfieldActionPerformed
@@ -607,6 +684,10 @@ public class Dashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_searchbtnActionPerformed
 
+    private void add_watchlistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_watchlistActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add_watchlistActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -614,6 +695,7 @@ public class Dashboard extends javax.swing.JFrame {
         
 
         /* Set the Nimbus look and feel */
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -640,6 +722,7 @@ public class Dashboard extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new Dashboard().setVisible(true);
             
+            
             });         
          
 
@@ -650,6 +733,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel Low_label;
     private javax.swing.JTabbedPane Tabbed_Panel;
     private javax.swing.JButton Wtchlstbtn;
+    private javax.swing.JButton add_watchlist;
     private Candlestick candlestick1;
     private javax.swing.JLabel close_label;
     private javax.swing.JPanel company_page;
@@ -675,5 +759,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel title_label;
     private javax.swing.JPanel topbar;
     private javax.swing.JPanel watchlist_tab;
+    private javax.swing.JPanel wtchlistpanel;
     // End of variables declaration//GEN-END:variables
 }
