@@ -17,6 +17,7 @@ import javax.swing.BorderFactory;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.json.*;
@@ -162,6 +163,7 @@ public class Dashboard extends javax.swing.JFrame {
         sidebar = new javax.swing.JPanel();
         Homebtn = new javax.swing.JButton();
         Wtchlstbtn = new javax.swing.JButton();
+        LogOut_Btn = new javax.swing.JButton();
         Tabbed_Panel = new javax.swing.JTabbedPane();
         home_tab = new javax.swing.JPanel();
         home_panel = new javax.swing.JPanel();
@@ -257,12 +259,25 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        LogOut_Btn.setBackground(new java.awt.Color(0, 0, 0));
+        LogOut_Btn.setForeground(new java.awt.Color(255, 102, 102));
+        LogOut_Btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/watchlist_white.png"))); // NOI18N
+        LogOut_Btn.setText("Log Out");
+        LogOut_Btn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(102, 102, 102)));
+        LogOut_Btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LogOut_Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogOut_BtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
         sidebar.setLayout(sidebarLayout);
         sidebarLayout.setHorizontalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Wtchlstbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
             .addComponent(Homebtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(LogOut_Btn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
         sidebarLayout.setVerticalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +286,9 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(Homebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Wtchlstbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(702, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(LogOut_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(635, Short.MAX_VALUE))
         );
 
         getContentPane().add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 330, 920));
@@ -702,6 +719,15 @@ public class Dashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_add_watchlistActionPerformed
 
+    private void LogOut_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOut_BtnActionPerformed
+        LoginPage lgf = new LoginPage();
+        lgf.setVisible(true);
+        lgf.pack();
+        lgf.setLocationRelativeTo(null);
+        lgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_LogOut_BtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -744,6 +770,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Homebtn;
+    private javax.swing.JButton LogOut_Btn;
     private javax.swing.JLabel Low_label;
     private javax.swing.JTabbedPane Tabbed_Panel;
     private javax.swing.JButton Wtchlstbtn;
