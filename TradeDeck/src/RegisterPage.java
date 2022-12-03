@@ -62,21 +62,25 @@ public class RegisterPage extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
         setUndecorated(true);
 
-        Register_Container.setBackground(new java.awt.Color(51, 51, 255));
+        Register_Container.setBackground(new java.awt.Color(255, 102, 102));
         Register_Container.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans Mono", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 255));
         jLabel1.setText("REGISTER");
 
         Name_Label.setFont(new java.awt.Font("Manjari", 0, 18)); // NOI18N
+        Name_Label.setForeground(new java.awt.Color(0, 0, 0));
         Name_Label.setText("First Name :  ");
 
         Name_Label1.setFont(new java.awt.Font("Manjari", 0, 18)); // NOI18N
+        Name_Label1.setForeground(new java.awt.Color(0, 0, 0));
         Name_Label1.setText("Password  :");
 
         Name_Label2.setFont(new java.awt.Font("Manjari", 0, 18)); // NOI18N
+        Name_Label2.setForeground(new java.awt.Color(0, 0, 0));
         Name_Label2.setText("Email  : ");
 
         Name_Label3.setFont(new java.awt.Font("Manjari", 0, 18)); // NOI18N
@@ -106,9 +110,11 @@ public class RegisterPage extends javax.swing.JFrame {
         LastName_Input.setOpaque(false);
 
         Name_Label5.setFont(new java.awt.Font("Manjari", 0, 18)); // NOI18N
+        Name_Label5.setForeground(new java.awt.Color(0, 0, 0));
         Name_Label5.setText("Last Name :  ");
 
         Name_Label6.setFont(new java.awt.Font("Manjari", 0, 18)); // NOI18N
+        Name_Label6.setForeground(new java.awt.Color(0, 0, 0));
         Name_Label6.setText("Cnf Password : ");
 
         Password_Input.setBackground(new java.awt.Color(0, 153, 255));
@@ -121,7 +127,8 @@ public class RegisterPage extends javax.swing.JFrame {
         CnfPassword_Input.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         CnfPassword_Input.setOpaque(false);
 
-        Register_Btn.setBackground(new java.awt.Color(255, 102, 102));
+        Register_Btn.setBackground(new java.awt.Color(102, 102, 255));
+        Register_Btn.setFont(new java.awt.Font("Noto Sans CJK HK", 0, 18)); // NOI18N
         Register_Btn.setText("Submit");
         Register_Btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -140,11 +147,12 @@ public class RegisterPage extends javax.swing.JFrame {
         UserName_Input.setOpaque(false);
 
         Name_Label7.setFont(new java.awt.Font("Manjari", 0, 18)); // NOI18N
+        Name_Label7.setForeground(new java.awt.Color(0, 0, 0));
         Name_Label7.setText("UserName : ");
 
-        Register_Btn1.setBackground(new java.awt.Color(255, 153, 153));
+        Register_Btn1.setBackground(new java.awt.Color(0, 153, 153));
         Register_Btn1.setFont(new java.awt.Font("Mukti Narrow", 0, 18)); // NOI18N
-        Register_Btn1.setText("Login ?");
+        Register_Btn1.setText("Already a User ?");
         Register_Btn1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Register_Btn1MouseClicked(evt);
@@ -168,14 +176,15 @@ public class RegisterPage extends javax.swing.JFrame {
                             .addComponent(Name_Label3)
                             .addComponent(Name_Label4)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Name_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Name_Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Name_Label5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Name_Label6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Name_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Name_Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Name_Label7, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Name_Label6, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
+                            .addComponent(Name_Label5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Name_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(UserName_Input, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -192,7 +201,7 @@ public class RegisterPage extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addComponent(Register_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Register_Btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Register_Btn1)
                 .addGap(51, 51, 51))
         );
         jPanel1Layout.setVerticalGroup(
@@ -244,8 +253,9 @@ public class RegisterPage extends javax.swing.JFrame {
         Register_title.setToolTipText("");
         Register_Container.add(Register_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 280, 60));
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 255));
-        jButton1.setFont(new java.awt.Font("Jamrul", 0, 18)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(255, 102, 102));
+        jButton1.setFont(new java.awt.Font("Liberation Mono", 0, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("X");
         jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -253,7 +263,7 @@ public class RegisterPage extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        Register_Container.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, -1, -1));
+        Register_Container.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 20, 30, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

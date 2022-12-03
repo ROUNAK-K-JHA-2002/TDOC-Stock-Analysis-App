@@ -49,7 +49,6 @@ public class LoginPage extends javax.swing.JFrame {
         UserName_Input = new javax.swing.JTextField();
         Password_Input = new javax.swing.JPasswordField();
         Login_Btn = new javax.swing.JButton();
-        Username_Label2 = new javax.swing.JLabel();
         New_User_Btn = new javax.swing.JLabel();
         Project_Label = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -106,13 +105,16 @@ public class LoginPage extends javax.swing.JFrame {
         Login_Container.setBackground(new java.awt.Color(255, 153, 153));
 
         LoginText.setFont(new java.awt.Font("DejaVu Serif", 0, 36)); // NOI18N
+        LoginText.setForeground(new java.awt.Color(153, 255, 255));
         LoginText.setText("LOGIN");
         LoginText.setAutoscrolls(true);
 
         Username_Label.setFont(new java.awt.Font("Lohit Devanagari", 0, 18)); // NOI18N
+        Username_Label.setForeground(new java.awt.Color(0, 0, 0));
         Username_Label.setText("Password : ");
 
         Username_Label1.setFont(new java.awt.Font("Lohit Devanagari", 0, 18)); // NOI18N
+        Username_Label1.setForeground(new java.awt.Color(0, 0, 0));
         Username_Label1.setText("User Name : ");
 
         UserName_Input.setBackground(new java.awt.Color(255, 153, 153));
@@ -136,7 +138,7 @@ public class LoginPage extends javax.swing.JFrame {
         Password_Input.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         Password_Input.setOpaque(false);
 
-        Login_Btn.setBackground(new java.awt.Color(255, 51, 0));
+        Login_Btn.setBackground(new java.awt.Color(102, 102, 255));
         Login_Btn.setFont(new java.awt.Font("Nimbus Mono L", 1, 24)); // NOI18N
         Login_Btn.setText("Login");
         Login_Btn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 51, 51), 1, true));
@@ -146,15 +148,8 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        Username_Label2.setFont(new java.awt.Font("Lohit Devanagari", 1, 14)); // NOI18N
-        Username_Label2.setText("Forgot Password ?");
-        Username_Label2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Username_Label2MouseClicked(evt);
-            }
-        });
-
-        New_User_Btn.setFont(new java.awt.Font("Lohit Devanagari", 1, 14)); // NOI18N
+        New_User_Btn.setFont(new java.awt.Font("Pagul", 1, 18)); // NOI18N
+        New_User_Btn.setForeground(new java.awt.Color(0, 0, 0));
         New_User_Btn.setText("New User?");
         New_User_Btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -182,15 +177,11 @@ public class LoginPage extends javax.swing.JFrame {
                             .addComponent(Password_Input))))
                 .addGap(51, 51, 51))
             .addGroup(Login_ContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Username_Label2)
+                .addGap(58, 58, 58)
+                .addComponent(Login_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(New_User_Btn)
-                .addGap(27, 27, 27))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Login_ContainerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Login_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(156, 156, 156))
+                .addGap(40, 40, 40))
         );
         Login_ContainerLayout.setVerticalGroup(
             Login_ContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,13 +196,11 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGroup(Login_ContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Username_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Password_Input, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addComponent(Login_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(Login_ContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Username_Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGroup(Login_ContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Login_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(New_User_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(87, 87, 87))
+                .addGap(85, 85, 85))
         );
 
         Project_Label.setFont(new java.awt.Font("Ubuntu Light", 0, 48)); // NOI18N
@@ -253,8 +242,8 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(Project_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Login_Container, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addComponent(Login_Container, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         getContentPane().add(Container_Right, new org.netbeans.lib.awtextra.AbsoluteConstraints(398, 0, 690, 600));
@@ -262,14 +251,11 @@ public class LoginPage extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1057, 600));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+     String UserName = "";   
+    
     private void UserName_InputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserName_InputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UserName_InputActionPerformed
-
-    private void Username_Label2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Username_Label2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Username_Label2MouseClicked
 
     private void New_User_BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_New_User_BtnMouseClicked
         RegisterPage rgp = new RegisterPage();
@@ -304,7 +290,7 @@ public class LoginPage extends javax.swing.JFrame {
         return "";
     }
     private void Login_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login_BtnActionPerformed
- PreparedStatement ps;
+         PreparedStatement ps;
         ResultSet rs;
         String Username = UserName_Input.getText();
         String Password = String.valueOf(Password_Input.getPassword());
@@ -332,6 +318,9 @@ public class LoginPage extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_Login_BtnActionPerformed
 
+   
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -379,7 +368,6 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JTextField UserName_Input;
     private javax.swing.JLabel Username_Label;
     private javax.swing.JLabel Username_Label1;
-    private javax.swing.JLabel Username_Label2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

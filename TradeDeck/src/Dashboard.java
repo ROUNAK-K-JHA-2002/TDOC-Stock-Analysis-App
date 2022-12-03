@@ -160,6 +160,7 @@ public class Dashboard extends javax.swing.JFrame {
         logo_label = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         title_label = new javax.swing.JLabel();
+        title_label1 = new javax.swing.JLabel();
         sidebar = new javax.swing.JPanel();
         Homebtn = new javax.swing.JButton();
         Wtchlstbtn = new javax.swing.JButton();
@@ -193,7 +194,7 @@ public class Dashboard extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(121, 121));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        topbar.setBackground(new java.awt.Color(255, 61, 73));
+        topbar.setBackground(new java.awt.Color(204, 51, 255));
         topbar.setPreferredSize(new java.awt.Dimension(1930, 100));
 
         logo_label.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -203,6 +204,9 @@ public class Dashboard extends javax.swing.JFrame {
 
         title_label.setFont(new java.awt.Font("Samanata", 1, 24)); // NOI18N
         title_label.setText("TradeDeck");
+
+        title_label1.setFont(new java.awt.Font("Samanata", 1, 14)); // NOI18N
+        title_label1.setText("A Stock Analysing Tool");
 
         javax.swing.GroupLayout topbarLayout = new javax.swing.GroupLayout(topbar);
         topbar.setLayout(topbarLayout);
@@ -214,28 +218,37 @@ public class Dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(title_label)
-                .addContainerGap(1736, Short.MAX_VALUE))
+                .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(title_label1)
+                    .addComponent(title_label))
+                .addContainerGap(1701, Short.MAX_VALUE))
         );
         topbarLayout.setVerticalGroup(
             topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topbarLayout.createSequentialGroup()
-                .addContainerGap(199, Short.MAX_VALUE)
+                .addContainerGap(177, Short.MAX_VALUE)
                 .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(title_label, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(logo_label, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
+                    .addComponent(logo_label, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(topbarLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(title_label, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(topbarLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(title_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(29, 29, 29))
         );
 
         getContentPane().add(topbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -180, -1, 280));
 
-        sidebar.setBackground(new java.awt.Color(59, 42, 42));
+        sidebar.setBackground(new java.awt.Color(153, 51, 255));
         sidebar.setPreferredSize(new java.awt.Dimension(300, 950));
 
-        Homebtn.setBackground(new java.awt.Color(0, 0, 0));
-        Homebtn.setForeground(new java.awt.Color(255, 102, 102));
+        Homebtn.setBackground(new java.awt.Color(102, 0, 102));
+        Homebtn.setFont(new java.awt.Font("URW Bookman L", 0, 18)); // NOI18N
+        Homebtn.setForeground(new java.awt.Color(255, 255, 255));
         Homebtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/home.png"))); // NOI18N
         Homebtn.setText("Home");
         Homebtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(102, 102, 102)));
@@ -247,8 +260,9 @@ public class Dashboard extends javax.swing.JFrame {
         });
         //Homebtn.setborder(set BorderRadius(10))
 
-        Wtchlstbtn.setBackground(new java.awt.Color(0, 0, 0));
-        Wtchlstbtn.setForeground(new java.awt.Color(255, 102, 102));
+        Wtchlstbtn.setBackground(new java.awt.Color(102, 0, 102));
+        Wtchlstbtn.setFont(new java.awt.Font("URW Palladio L", 0, 18)); // NOI18N
+        Wtchlstbtn.setForeground(new java.awt.Color(255, 255, 255));
         Wtchlstbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/watchlist_white.png"))); // NOI18N
         Wtchlstbtn.setText("Watchlist");
         Wtchlstbtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(102, 102, 102)));
@@ -259,8 +273,9 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        LogOut_Btn.setBackground(new java.awt.Color(0, 0, 0));
-        LogOut_Btn.setForeground(new java.awt.Color(255, 102, 102));
+        LogOut_Btn.setBackground(new java.awt.Color(102, 0, 102));
+        LogOut_Btn.setFont(new java.awt.Font("URW Palladio L", 0, 18)); // NOI18N
+        LogOut_Btn.setForeground(new java.awt.Color(255, 255, 255));
         LogOut_Btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/watchlist_white.png"))); // NOI18N
         LogOut_Btn.setText("Log Out");
         LogOut_Btn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(102, 102, 102)));
@@ -275,20 +290,20 @@ public class Dashboard extends javax.swing.JFrame {
         sidebar.setLayout(sidebarLayout);
         sidebarLayout.setHorizontalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Wtchlstbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
             .addComponent(Homebtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(LogOut_Btn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+            .addComponent(Wtchlstbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+            .addComponent(LogOut_Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         sidebarLayout.setVerticalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarLayout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(Homebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Wtchlstbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(LogOut_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(635, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(Homebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Wtchlstbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LogOut_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(742, Short.MAX_VALUE))
         );
 
         getContentPane().add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 330, 920));
@@ -297,18 +312,22 @@ public class Dashboard extends javax.swing.JFrame {
         Tabbed_Panel.setForeground(new java.awt.Color(204, 204, 204));
         Tabbed_Panel.setPreferredSize(new java.awt.Dimension(1600, 1000));
 
-        home_tab.setBackground(new java.awt.Color(255, 255, 255));
+        home_tab.setBackground(new java.awt.Color(204, 204, 255));
         home_tab.setForeground(new java.awt.Color(0, 0, 0));
 
-        home_panel.setBackground(new java.awt.Color(255, 255, 255));
+        home_panel.setBackground(new java.awt.Color(204, 204, 255));
         home_panel.setForeground(new java.awt.Color(0, 0, 0));
 
+        search_textfield.setBackground(new java.awt.Color(255, 204, 255));
         search_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 search_textfieldActionPerformed(evt);
             }
         });
 
+        searchbtn.setBackground(new java.awt.Color(255, 204, 204));
+        searchbtn.setFont(new java.awt.Font("URW Bookman L", 1, 18)); // NOI18N
+        searchbtn.setForeground(new java.awt.Color(0, 0, 0));
         searchbtn.setText("Search");
         searchbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,17 +335,17 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        search_result_panel.setBackground(new java.awt.Color(255, 255, 255));
+        search_result_panel.setBackground(new java.awt.Color(204, 204, 255));
 
         javax.swing.GroupLayout search_result_panelLayout = new javax.swing.GroupLayout(search_result_panel);
         search_result_panel.setLayout(search_result_panelLayout);
         search_result_panelLayout.setHorizontalGroup(
             search_result_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1867, Short.MAX_VALUE)
         );
         search_result_panelLayout.setVerticalGroup(
             search_result_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 757, Short.MAX_VALUE)
+            .addGap(0, 749, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout home_panelLayout = new javax.swing.GroupLayout(home_panel);
@@ -335,15 +354,13 @@ public class Dashboard extends javax.swing.JFrame {
             home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(home_panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(home_panelLayout.createSequentialGroup()
-                        .addComponent(search_result_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(home_panelLayout.createSequentialGroup()
-                        .addComponent(search_textfield, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(searchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1095, 1095, 1095))))
+                .addComponent(search_textfield)
+                .addGap(18, 18, 18)
+                .addComponent(searchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1222, 1222, 1222))
+            .addGroup(home_panelLayout.createSequentialGroup()
+                .addComponent(search_result_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         home_panelLayout.setVerticalGroup(
             home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,9 +369,9 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(home_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(search_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(search_result_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout home_tabLayout = new javax.swing.GroupLayout(home_tab);
@@ -362,18 +379,23 @@ public class Dashboard extends javax.swing.JFrame {
         home_tabLayout.setHorizontalGroup(
             home_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(home_tabLayout.createSequentialGroup()
-                .addComponent(home_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(home_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 1856, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         home_tabLayout.setVerticalGroup(
             home_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, home_tabLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(home_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(home_tabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(home_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
 
         Tabbed_Panel.addTab("tab1", home_tab);
+
+        watchlist_tab.setBackground(new java.awt.Color(204, 204, 255));
+
+        wtchlistpanel.setBackground(new java.awt.Color(204, 204, 255));
 
         javax.swing.GroupLayout wtchlistpanelLayout = new javax.swing.GroupLayout(wtchlistpanel);
         wtchlistpanel.setLayout(wtchlistpanelLayout);
@@ -400,7 +422,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(watchlist_tabLayout.createSequentialGroup()
                 .addGap(166, 166, 166)
                 .addComponent(wtchlistpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Tabbed_Panel.addTab("tab3", watchlist_tab);
@@ -597,7 +619,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         Tabbed_Panel.addTab("tab4", company_page);
 
-        getContentPane().add(Tabbed_Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, -30, -1, 1050));
+        getContentPane().add(Tabbed_Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, -30, -1, 1060));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -798,6 +820,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel sidebar;
     private javax.swing.JPanel stats_panel;
     private javax.swing.JLabel title_label;
+    private javax.swing.JLabel title_label1;
     private javax.swing.JPanel topbar;
     private javax.swing.JPanel watchlist_tab;
     private javax.swing.JPanel wtchlistpanel;
