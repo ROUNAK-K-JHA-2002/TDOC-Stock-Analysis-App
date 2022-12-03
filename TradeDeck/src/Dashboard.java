@@ -161,6 +161,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         title_label = new javax.swing.JLabel();
         title_label1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         sidebar = new javax.swing.JPanel();
         Homebtn = new javax.swing.JButton();
         Wtchlstbtn = new javax.swing.JButton();
@@ -208,6 +209,15 @@ public class Dashboard extends javax.swing.JFrame {
         title_label1.setFont(new java.awt.Font("Samanata", 1, 14)); // NOI18N
         title_label1.setText("A Stock Analysing Tool");
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("X");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout topbarLayout = new javax.swing.GroupLayout(topbar);
         topbar.setLayout(topbarLayout);
         topbarLayout.setHorizontalGroup(
@@ -221,24 +231,31 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(title_label1)
                     .addComponent(title_label))
-                .addContainerGap(1701, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1665, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         topbarLayout.setVerticalGroup(
             topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topbarLayout.createSequentialGroup()
+            .addGroup(topbarLayout.createSequentialGroup()
                 .addContainerGap(177, Short.MAX_VALUE)
                 .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(logo_label, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(topbarLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topbarLayout.createSequentialGroup()
                         .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(title_label, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(logo_label, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(topbarLayout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(title_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(29, 29, 29))
+                                .addGap(6, 6, 6)
+                                .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(topbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(title_label, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(topbarLayout.createSequentialGroup()
+                                        .addGap(40, 40, 40)
+                                        .addComponent(title_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topbarLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56))))
         );
 
         getContentPane().add(topbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -180, -1, 280));
@@ -663,6 +680,13 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void searchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbtnActionPerformed
         // TODO add your handling code here:
+        Loading ld = new Loading();
+         ld.setVisible(true);
+        ld.pack();
+        ld.toFront();
+        ld.setAlwaysOnTop(true);
+        ld.setLocationRelativeTo(null);
+        ld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         String keyword = search_textfield.getText();
         ArrayList<javax.swing.JLabel> companylabels = new ArrayList<javax.swing.JLabel>();
         
@@ -670,6 +694,7 @@ public class Dashboard extends javax.swing.JFrame {
         try {
             search(keyword);
             search_textfield.setText("");
+            ld.dispose();
             for(int i=0; i<companies.size();i++){
                 companylabels.add(new javax.swing.JLabel(companies.get(i) + "(" + symbols.get(i)+ ")"));
                 companylabels.get(i).setBounds(410, 80+(i*50), 350, 50);
@@ -679,7 +704,13 @@ public class Dashboard extends javax.swing.JFrame {
                 companylabels.get(i).addMouseListener(new MouseAdapter(){
                 
                     public void mousePressed(MouseEvent me){
-                        
+                        Loading ld = new Loading();
+         ld.setVisible(true);
+        ld.pack();
+        ld.toFront();
+        ld.setAlwaysOnTop(true);
+        ld.setLocationRelativeTo(null);
+        ld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         try {
                             api(symbol);
                             graphplot2.cordy=cordy;
@@ -695,7 +726,7 @@ public class Dashboard extends javax.swing.JFrame {
                             open_label.setText("Todays's openning stock :" +open);
                             close_label.setText("Todays's closing stock :" +close);
                             
-
+ ld.dispose();
                         } catch (IOException ex) {
                             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (InterruptedException ex) {
@@ -710,6 +741,7 @@ public class Dashboard extends javax.swing.JFrame {
                 });
                 
             }
+           
             
             search_result_panel.removeAll();
             for(int i =0 ;i<companylabels.size();i++){
@@ -749,6 +781,10 @@ public class Dashboard extends javax.swing.JFrame {
         lgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_LogOut_BtnActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -804,6 +840,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel high_label;
     private javax.swing.JPanel home_panel;
     private javax.swing.JPanel home_tab;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

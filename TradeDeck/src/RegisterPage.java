@@ -89,6 +89,7 @@ public class RegisterPage extends javax.swing.JFrame {
         Name_Label4.setFont(new java.awt.Font("Manjari", 0, 18)); // NOI18N
         Name_Label4.setText("Pan Card Number : ");
 
+        FirstName_Input.setBackground(new java.awt.Color(255, 153, 153));
         FirstName_Input.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         FirstName_Input.setToolTipText("Enter Full Name");
         FirstName_Input.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -309,7 +310,12 @@ public class RegisterPage extends javax.swing.JFrame {
         return "";
     }
     private void Register_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Register_BtnActionPerformed
-          String FirstName = FirstName_Input.getText();
+           Loading ld = new Loading();
+         ld.setVisible(true);
+        ld.pack();
+        ld.setLocationRelativeTo(null);
+        ld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        String FirstName = FirstName_Input.getText();
           String LastName = LastName_Input.getText();
           String UserName = UserName_Input.getText();
           String Email = Email_Input.getText();
@@ -342,13 +348,14 @@ public class RegisterPage extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(null, "Password Length Must be Greater than 6");
           }
           
+          
           else{
               PreparedStatement ps;
         String HashedPassword = HashingPwd(Psswd);
           String query = "INSERT INTO Users (PersonId,First_Name,Last_Name,User_name,Email,Password)" + "VALUES (1,'" +FirstName+"','" +LastName+"','" +UserName+"','" +Email+"','" +HashedPassword+"') ";
         try {
             ps = SqlConnection.getConnection().prepareStatement(query);
-           
+            ld.dispose();
             if(ps.executeUpdate() > 0){
                JOptionPane.showMessageDialog(null, "Account Created Succesfully");
             }
