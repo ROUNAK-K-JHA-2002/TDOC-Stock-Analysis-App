@@ -280,7 +280,7 @@ public class Dashboard extends javax.swing.JFrame {
         Wtchlstbtn.setBackground(new java.awt.Color(102, 0, 102));
         Wtchlstbtn.setFont(new java.awt.Font("URW Palladio L", 0, 18)); // NOI18N
         Wtchlstbtn.setForeground(new java.awt.Color(255, 255, 255));
-        Wtchlstbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/watchlist_white.png"))); // NOI18N
+        Wtchlstbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/bookmark.png"))); // NOI18N
         Wtchlstbtn.setText("Watchlist");
         Wtchlstbtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(102, 102, 102)));
         Wtchlstbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -293,7 +293,7 @@ public class Dashboard extends javax.swing.JFrame {
         LogOut_Btn.setBackground(new java.awt.Color(102, 0, 102));
         LogOut_Btn.setFont(new java.awt.Font("URW Palladio L", 0, 18)); // NOI18N
         LogOut_Btn.setForeground(new java.awt.Color(255, 255, 255));
-        LogOut_Btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/watchlist_white.png"))); // NOI18N
+        LogOut_Btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/logout.png"))); // NOI18N
         LogOut_Btn.setText("Log Out");
         LogOut_Btn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(102, 102, 102)));
         LogOut_Btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -314,13 +314,13 @@ public class Dashboard extends javax.swing.JFrame {
         sidebarLayout.setVerticalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(Homebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Wtchlstbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LogOut_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(742, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Homebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Wtchlstbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LogOut_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(727, Short.MAX_VALUE))
         );
 
         getContentPane().add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 330, 920));
