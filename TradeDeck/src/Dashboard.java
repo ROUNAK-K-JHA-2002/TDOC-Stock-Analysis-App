@@ -653,12 +653,13 @@ public class Dashboard extends javax.swing.JFrame {
         System.out.println("user : "+this.username);
         try {
             watchlistarray = getWatchlist(username);
-            ArrayList<javax.swing.JLabel> wtchlistlabels = new ArrayList<javax.swing.JLabel>();
+            ArrayList<javax.swing.JButton> wtchlistlabels = new ArrayList<javax.swing.JButton>();
             for(int i=0;i<watchlistarray.size();i++){
-               wtchlistlabels.add(new javax.swing.JLabel(watchlistarray.get(i)));
+               wtchlistlabels.add(new javax.swing.JButton(watchlistarray.get(i)));
                wtchlistlabels.get(i).setBounds(410, 80+(i*50), 350, 50);
                wtchlistlabels.get(i).setCursor(new Cursor(Cursor.HAND_CURSOR));
                wtchlistlabels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
+               wtchlistlabels.get(i).setBackground(Color.pink);
             }
             
             Tabbed_Panel.setSelectedIndex(1);
@@ -688,7 +689,7 @@ public class Dashboard extends javax.swing.JFrame {
         ld.setLocationRelativeTo(null);
         ld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         String keyword = search_textfield.getText();
-        ArrayList<javax.swing.JLabel> companylabels = new ArrayList<javax.swing.JLabel>();
+        ArrayList<javax.swing.JButton> companylabels = new ArrayList<javax.swing.JButton>();
         
 
         try {
@@ -696,14 +697,17 @@ public class Dashboard extends javax.swing.JFrame {
             search_textfield.setText("");
             ld.dispose();
             for(int i=0; i<companies.size();i++){
-                companylabels.add(new javax.swing.JLabel(companies.get(i) + "(" + symbols.get(i)+ ")"));
+                companylabels.add(new javax.swing.JButton(companies.get(i) + "(" + symbols.get(i)+ ")"));
                 companylabels.get(i).setBounds(410, 80+(i*50), 350, 50);
                 companylabels.get(i).setCursor(new Cursor(Cursor.HAND_CURSOR));
                 companylabels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
+                companylabels.get(i).setBackground(Color.yellow);
+
                 String symbol = symbols.get(i);
                 companylabels.get(i).addMouseListener(new MouseAdapter(){
                 
                     public void mousePressed(MouseEvent me){
+
                         Loading ld = new Loading();
          ld.setVisible(true);
         ld.pack();
@@ -725,8 +729,9 @@ public class Dashboard extends javax.swing.JFrame {
                             high_label.setText("Todays's highsest stock :" +high);
                             open_label.setText("Todays's openning stock :" +open);
                             close_label.setText("Todays's closing stock :" +close);
-                            
+           
  ld.dispose();
+ 
                         } catch (IOException ex) {
                             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (InterruptedException ex) {

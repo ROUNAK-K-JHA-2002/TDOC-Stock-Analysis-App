@@ -20,6 +20,7 @@ public class graphplot extends JPanel{
     
     
       
+    @Override
     protected void paintComponent(Graphics grf){ 
         
         
