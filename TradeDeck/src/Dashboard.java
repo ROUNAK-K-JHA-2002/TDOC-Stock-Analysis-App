@@ -448,6 +448,8 @@ public class Dashboard extends javax.swing.JFrame {
         company_page.setForeground(new java.awt.Color(102, 102, 102));
         company_page.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        stats_panel.setForeground(new java.awt.Color(255, 255, 204));
+
         Low_label.setText("Todays lowest stock");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -594,6 +596,10 @@ public class Dashboard extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("raw", jPanel1);
 
+        jPanel6.setForeground(new java.awt.Color(255, 255, 204));
+
+        candlestick1.setForeground(new java.awt.Color(51, 0, 0));
+
         javax.swing.GroupLayout candlestick1Layout = new javax.swing.GroupLayout(candlestick1);
         candlestick1.setLayout(candlestick1Layout);
         candlestick1Layout.setHorizontalGroup(
@@ -660,6 +666,48 @@ public class Dashboard extends javax.swing.JFrame {
                wtchlistlabels.get(i).setCursor(new Cursor(Cursor.HAND_CURSOR));
                wtchlistlabels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
                wtchlistlabels.get(i).setBackground(Color.pink);
+               String symbol = watchlistarray.get(i);
+                              wtchlistlabels.get(i).addMouseListener(new MouseAdapter(){
+                
+                    public void mousePressed(MouseEvent me){
+
+//                        Loading ld = new Loading();
+//         ld.setVisible(true);
+//        ld.pack();
+//        ld.toFront();
+//        ld.setAlwaysOnTop(true);
+//        ld.setLocationRelativeTo(null);
+//        ld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        try {
+                            api(symbol);
+                            graphplot2.cordy=cordy;
+                            graphplot2.dates=dates;
+                            candlestick1.high=highvalues;
+                            candlestick1.low = lowvalues;
+                            candlestick1.close=closevalues;
+                            candlestick1.open=openvalues;
+                            wtchlistnew=symbol;
+                            
+                            Low_label.setText("Today's lowest stock : "+(low));
+                            high_label.setText("Todays's highsest stock :" +high);
+                            open_label.setText("Todays's openning stock :" +open);
+                            close_label.setText("Todays's closing stock :" +close);
+           
+// ld.dispose();
+ 
+                        } catch (IOException ex) {
+                            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
+                       
+                        Tabbed_Panel.setSelectedIndex(2);
+                
+                    }
+
+                });
+               
             }
             
             Tabbed_Panel.setSelectedIndex(1);
@@ -681,13 +729,13 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void searchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbtnActionPerformed
         // TODO add your handling code here:
-        Loading ld = new Loading();
-         ld.setVisible(true);
-        ld.pack();
-        ld.toFront();
-        ld.setAlwaysOnTop(true);
-        ld.setLocationRelativeTo(null);
-        ld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        Loading ld = new Loading();
+//         ld.setVisible(true);
+//        ld.pack();
+//        ld.toFront();
+//        ld.setAlwaysOnTop(true);
+//        ld.setLocationRelativeTo(null);
+//        ld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         String keyword = search_textfield.getText();
         ArrayList<javax.swing.JButton> companylabels = new ArrayList<javax.swing.JButton>();
         
@@ -695,7 +743,7 @@ public class Dashboard extends javax.swing.JFrame {
         try {
             search(keyword);
             search_textfield.setText("");
-            ld.dispose();
+//            ld.dispose();
             for(int i=0; i<companies.size();i++){
                 companylabels.add(new javax.swing.JButton(companies.get(i) + "(" + symbols.get(i)+ ")"));
                 companylabels.get(i).setBounds(410, 80+(i*50), 350, 50);
@@ -708,13 +756,13 @@ public class Dashboard extends javax.swing.JFrame {
                 
                     public void mousePressed(MouseEvent me){
 
-                        Loading ld = new Loading();
-         ld.setVisible(true);
-        ld.pack();
-        ld.toFront();
-        ld.setAlwaysOnTop(true);
-        ld.setLocationRelativeTo(null);
-        ld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                        Loading ld = new Loading();
+//         ld.setVisible(true);
+//        ld.pack();
+//        ld.toFront();
+//        ld.setAlwaysOnTop(true);
+//        ld.setLocationRelativeTo(null);
+//        ld.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         try {
                             api(symbol);
                             graphplot2.cordy=cordy;
@@ -730,7 +778,7 @@ public class Dashboard extends javax.swing.JFrame {
                             open_label.setText("Todays's openning stock :" +open);
                             close_label.setText("Todays's closing stock :" +close);
            
- ld.dispose();
+// ld.dispose();
  
                         } catch (IOException ex) {
                             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
@@ -768,14 +816,22 @@ public class Dashboard extends javax.swing.JFrame {
         PreparedStatement prep;
         String query = "INSERT INTO Watchlist VALUES ('" + username + "', '"+wtchlistnew + "');";
         try {
-            prep = SqlConnection.getConnection().prepareStatement(query);
-            if(prep.executeUpdate() > 0){
-               JOptionPane.showMessageDialog(null, "Added to Watchlist");
+            if(getWatchlist(username).contains(wtchlistnew)){
+                JOptionPane.showMessageDialog(null, "Already in Watchlist");
+            }else{
+                try {
+                    
+                    prep = SqlConnection.getConnection().prepareStatement(query);
+                    if(prep.executeUpdate() > 0){
+                        JOptionPane.showMessageDialog(null, "Added to Watchlist");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_add_watchlistActionPerformed
 
     private void LogOut_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOut_BtnActionPerformed
